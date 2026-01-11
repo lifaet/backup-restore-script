@@ -3,7 +3,7 @@ set -euo pipefail
 
 # Load env & config
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-source "$SCRIPT_DIR/backup.conf.sh"
+source "$SCRIPT_DIR/config.sh"
 
 # Discover databases (kept in main script)
 DB_LIST=$(grep -E '^DB_DATABASE[0-9]*' "$ENV_FILE" | cut -d '=' -f2)

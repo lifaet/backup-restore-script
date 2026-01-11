@@ -1,24 +1,9 @@
 #!/bin/bash
 set -euo pipefail
 
-# Resolve directory of this script
+# Load env & config
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-
-# Load .env from parent directory of the script
-ENV_FILE="$SCRIPT_DIR/../.env"
-if [ ! -f "$ENV_FILE" ]; then
-    echo "❌ .env not found!"
-    exit 1
-fi
-set -a; source "$ENV_FILE"; set +a
-
-# Config
-CONTAINER="$DB_HOST"
-DB_USER="$DB_USERNAME"
-DB_PASS="$DB_PASSWORD"
-REMOTE="encompos"
-BASE_FOLDER="Databases/ENCOMPOS/TEST"
-KEEP_LAST=5
+source "$SCRIPT_DIR/../config.sh"
 
 
 # Timestamp
