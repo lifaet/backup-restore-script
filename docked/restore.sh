@@ -48,7 +48,7 @@ for DB_NAME in $DB_LIST; do
 
     # Restore database
     echo "→ Restoring $DB_NAME..."
-    cat "$TMP_FILE" | mysql -u"$DB_USER" -p"$DB_PASS" "$DB_NAME"
+    cat "$TMP_FILE" | docker exec -i "$CONTAINER" mysql -u"$DB_USER" -p"$DB_PASS" "$DB_NAME"
 
     # Cleanup
     rm "$TMP_FILE"

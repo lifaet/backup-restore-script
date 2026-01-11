@@ -1,20 +1,9 @@
 #!/bin/bash
 set -euo pipefail
 
-# Load .env from parent directory
-ENV_FILE="../.env"
-if [ ! -f "$ENV_FILE" ]; then
-    echo "❌ .env not found!"
-    exit 1
-fi
-set -a; source "$ENV_FILE"; set +a
-
-# Config
-CONTAINER="$DB_HOST"
-DB_USER="$DB_USERNAME"
-DB_PASS="$DB_PASSWORD"
-REMOTE="encompos"
-GDRIVE_FOLDER="Databases/ENCOMPOS/TEST"
+# Load env & config
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "$SCRIPT_DIR/backup.conf.sh"
 
 # Fetch all DB_DATABASE* variables from .env
 DB_LIST=$(grep -E '^DB_DATABASE[0-9]*' "$ENV_FILE" | cut -d '=' -f2)
@@ -48,7 +37,7 @@ for DB_NAME in $DB_LIST; do
 
     # Restore database
     echo "→ Restoring $DB_NAME..."
-    cat "$TMP_FILE" | docker exec -i "$CONTAINER" mysql -u"$DB_USER" -p"$DB_PASS" "$DB_NAME"
+    cat "$TMP_FILE" | mysql -u"$DB_USER" -p"$DB_PASS" "$DB_NAME"
 
     # Cleanup
     rm "$TMP_FILE"
