@@ -44,4 +44,4 @@ for DB_NAME in $DB_LIST; do
     echo "✓ $DB_NAME restored successfully."
 done
 
-echo "🎉 All available databases restored successfully!"
+# echo "🎉 All available databases restored successfully!"

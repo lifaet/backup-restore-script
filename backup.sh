@@ -40,4 +40,4 @@ for DB_NAME in $DB_LIST; do
     echo "✓ $DB_NAME backup completed."
 done
 
-echo "🎉 All databases backed up successfully!"
+# echo "🎉 All databases backed up successfully!"

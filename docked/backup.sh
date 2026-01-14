@@ -38,4 +38,4 @@ for DB in $DATABASES; do
     rm "/tmp/$BACKUP_FILE"
     echo "✓ $DB backup completed successfully."
 done
-echo "🎉 All databases backed up successfully!"
+# echo "🎉 All databases backed up successfully!"
