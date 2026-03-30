@@ -28,7 +28,7 @@ for DB_NAME in $DB_LIST; do
     DB_FOLDER="$GDRIVE_FOLDER/$DB_NAME"
 
     mysqldump -u"$DB_USER" -p"$DB_PASS" "$DB_NAME" | \
-    openssl enc -aes-256-cbc -salt -pass pass:"$BACKUP_PASSWORD" -out "/tmp/$BACKUP_FILE"
+    openssl enc -aes-256-cbc -salt -pbkdf2 -pass pass:"$BACKUP_PASSWORD" -out "/tmp/$BACKUP_FILE"
 
     rclone mkdir "$REMOTE:$DB_FOLDER" || true
     rclone copy "/tmp/$BACKUP_FILE" "$REMOTE:$DB_FOLDER"

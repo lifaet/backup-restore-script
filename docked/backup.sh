@@ -28,7 +28,7 @@ for DB in $DATABASES; do
 
     # Dump and encrypt directly (no plaintext file)
     docker exec -i "$CONTAINER" mysqldump -u"$DB_USER" -p"$DB_PASS" "$DB" | \
-    openssl enc -aes-256-cbc -salt -pass pass:"$BACKUP_PASSWORD" -out "/tmp/$BACKUP_FILE"
+    openssl enc -aes-256-cbc -salt -pbkdf2 -pass pass:"$BACKUP_PASSWORD" -out "/tmp/$BACKUP_FILE"
 
     echo "→ Uploading encrypted backup $BACKUP_FILE to Google Drive ($REMOTE:$DB_FOLDER)..."
     rclone mkdir "$REMOTE:$DB_FOLDER" || true

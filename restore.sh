@@ -43,7 +43,7 @@ for DB_NAME in $DB_LIST; do
 
     # Decrypt and restore
     echo "→ Decrypting and restoring $DB_NAME..."
-    openssl enc -d -aes-256-cbc -pass pass:"$BACKUP_PASSWORD" -in "$TMP_FILE" | \
+    openssl enc -d -aes-256-cbc -pbkdf2 -pass pass:"$BACKUP_PASSWORD" -in "$TMP_FILE" | \
     mysql -u"$DB_USER" -p"$DB_PASS" "$DB_NAME"
 
     # Cleanup
